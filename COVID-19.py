@@ -26,7 +26,7 @@ if __name__ == '__main__':
         signal(SIGINT, logout)
 
         now = datetime.datetime.now()
-        if now.minute % 2 == 0 and now.second == 0:
+        if now.minute % 5 == 0 and now.second == 0:
         # if now.second % 2 == 0:
             face_mask_riteaid = {'url': 'https://www.riteaid.com/shop/rite-aid-health-care-ear-loop-face-mask-20-ct-8021972',
                                  'name': 'RiteAid Face Mask'}
@@ -40,12 +40,14 @@ if __name__ == '__main__':
             mask_info = info[0].lstrip().split('=')
 
             riteaid_face_mask_info = json.loads(mask_info[1].strip().split(';')[0])[0]
-            print("{}: {}".format(face_mask_riteaid["name"], riteaid_face_mask_info['ecommerce']['detail']['products'][0]['price']) )
+            print("{}: {}".format(face_mask_riteaid["name"], 
+                                    riteaid_face_mask_info['ecommerce']['detail']['products'][0]['price']), 
+                                    riteaid_face_mask_info['ecommerce']['detail']['products'][0]['dimension4'].upper())
             print(now)
 
             time.sleep(1)
 
-            if (riteaid_face_mask_info['ecommerce']['detail']['products'][0]['dimension4'].upper() != "OUT OF STOCK"):
+            if (riteaid_face_mask_info['ecommerce']['detail']['products'][0]['dimension4'].upper() != "OUT OF STOCK") or (now.hour == 8 and now.minute == 0):
                 itchat.send("口罩: {},\n价格: {},\n库存: {}\n网址: {}".format(riteaid_face_mask_info['ecommerce']['detail']['products'][0]['name'], 
                                                 riteaid_face_mask_info['ecommerce']['detail']['products'][0]['price'],
                                                 riteaid_face_mask_info['ecommerce']['detail']['products'][0]['dimension4'].upper(),
