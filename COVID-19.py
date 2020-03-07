@@ -17,7 +17,7 @@ def logout(sigrecv, frame):
 if __name__ == '__main__':
     # Wechat setting
     itchat.auto_login()
-    mask_room = itchat.search_chatrooms(name='我们')
+    mask_room = itchat.search_chatrooms(name='COVID')
     mask_room_id = mask_room[0]['UserName']
     print(mask_room_id)
 
